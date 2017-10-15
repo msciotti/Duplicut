@@ -2,15 +2,17 @@ const Discord = require('discord.js');
 const Settings = require('./settings.json');
 
 const bot = new Discord.Client();
-let savedMessage = {};
+const SAVED_MESSAGES = {};
 
 bot.login(Settings.BOT_TOKEN);
-bot.on('message', message => {
-  if (savedMessage.author === message.author && savedMessage.content === message.content) {
-    message.delete();
-    return;
+bot.on('message', msg => {
+  const {content, author} = msg;
+
+  if (SAVED_MESSAGES[author.id] === content) {
+    msg.delete();
+  } else {
+    SAVED_MESSAGES[author.id] = content;
   }
 
-  savedMessage = message;
   return;
 });
