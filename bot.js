@@ -6,7 +6,11 @@ const SAVED_MESSAGES = {};
 
 bot.login(Settings.BOT_TOKEN);
 bot.on('message', msg => {
-  const {content, author} = msg;
+  const {content, author, attachments} = msg;
+
+  if (attachments != null) {
+    return;
+  }
 
   if (SAVED_MESSAGES[author.id] === content) {
     msg.delete();
