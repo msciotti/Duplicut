@@ -8,7 +8,7 @@ bot.login(Settings.BOT_TOKEN);
 bot.on('message', msg => {
   const {content, author, attachments} = msg;
 
-  if (attachments != null) {
+  if (attachments.size === 0) {
     return;
   }
 
